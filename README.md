@@ -34,9 +34,15 @@ Fennec Fox is a streaming platform which allows to communicate via voice or vide
 
 ### Backend
 
-- Fastify for server side. We use fastify becuase it is fast and low overhead web framework, for Node.js
+- Fastify for server side. We use fastify because it is fast and low overhead web framework, for Node.js
 - Using web-socket to connect client to server.
 
 ### Database
 
 - DBMS MongoDB. We use mongo because we have document oriented data.
+
+### Architecture
+![](imgReadMe/Architecture.jpg)
+-------------------------------------------------
+## Data Flow
+![](imgReadMe/DataFlow.jpg)
