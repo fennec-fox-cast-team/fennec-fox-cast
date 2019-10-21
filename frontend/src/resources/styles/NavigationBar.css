@@ -1,4 +1,30 @@
-.navTab{
+.navTab {
+    margin-left: 20px;
     display: inline-block;
-    margin-left: 100px;
+}
+
+.loginBut{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.buttonSet{
+    display: inline-block;
+    margin-left: 400px;
+}
+
+.fnc{
+    margin-left: 3%;
+    font-size: 150%;
+}
+
+.navBar {
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    background: #eb9936;
+    margin-bottom: 3%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }

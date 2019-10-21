@@ -5,6 +5,8 @@ import Main from './pages/Main';
 import Contact from "./pages/Contact";
 import NavBar from "./components/NavigationBar";
 import './resources/styles/App.css';
+import Registration from "./components/auth/RegistrationForm";
+import Login from "./components/auth/Login";
 
 
 function App() {
@@ -18,9 +20,13 @@ function App() {
           <Switch>
               <Route exact path="/" component={Main}/>
               <Route exact path="/contact" component={Contact}/>
+              <Route exact path="/register" component={Registration}/>
+              <Route exact path="/login" component={Login}/>
           </Switch>
       </div>
     </BrowserRouter>);
 }
 
 export default App;
+
+

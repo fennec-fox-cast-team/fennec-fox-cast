@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import '../resources/styles/NavigationBar.css'
+import LoginButton from "./auth/Login";
 
 const NavTab = props => {
 
     return (
-        <NavLink exact to={props.to}>
+        <NavLink className="navTab" exact to={props.to}>
             {props.label}
         </NavLink>
     );
@@ -13,14 +14,16 @@ const NavTab = props => {
 
 
 const NavBar = () => {
-
     return (
-        <div className="navTab">
-            <b>Fennec Fox Cast</b>
-            <div className="navTab">
+        <div className="navBar">
+            <b className="fnc">Fennec Fox Cast</b>
+            <div className="buttonSet">
                 <NavTab to="/" label="Main Page" />
                 <NavTab to="/contact" label="Contacts" />
+                <NavTab to="/register" label="Register"/>
+                <LoginButton />
             </div>
+
         </div>
     );
 };
