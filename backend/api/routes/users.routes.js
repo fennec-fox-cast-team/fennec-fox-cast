@@ -15,11 +15,6 @@ const routes = [
     },
     {
         method: 'POST',
-        url: '/api/users',
-        handler: userController.addUser,
-    },
-    {
-        method: 'POST',
         url: '/api/users/:id',
         handler: userController.updateUserById
     },
