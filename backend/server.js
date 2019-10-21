@@ -6,7 +6,7 @@ const fastify = require('fastify')({
 
 const swagger = require('./config/swagger.js');
 
-const { dbhost, dbname, dbpassword, dbuser } = require('./config/db.js');
+const { dbhost, dbpassword, dbuser } = require('./config/db.js');
 
 fastify.register(require('fastify-swagger'), swagger.options);
 
@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 
 // Connect to DB
 mongoose
-    .connect(`mongodb://${dbuser}:${dbpassword}@${dbhost}/${dbname}`, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(`mongodb+srv://${dbuser}:${dbpassword}@${dbhost}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log('Connection error to MongoDB!', err));
 
