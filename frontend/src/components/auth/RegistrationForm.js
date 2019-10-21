@@ -8,7 +8,6 @@ export default class RegistrationForm extends Component {
         this.state = {
             email: "",
             password: "",
-            password_confirmation: "",
             registrationErrors: ""
         };
 

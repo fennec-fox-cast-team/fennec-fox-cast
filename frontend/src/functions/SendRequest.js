@@ -28,7 +28,7 @@ function handleNoResponse(error) {
 }
 
 
-export function sendRequest(url, options) {
+export default function sendRequest(url, options) {
     const { headers = {}, ...otherOptions } = options || {};
     const optionsToFetch = {
         credentials: 'same-origin',

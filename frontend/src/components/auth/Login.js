@@ -3,8 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import LoadingButton from '../LoadingButton';
 import LoginForm from "./LoginForm";
-import axios from "axios";
-import {sendRequest} from "../../functions/SendRequest";
+import sendRequest from "../../functions/SendRequest";
 
 
 function LoginModal({ articleIds, closeModal}) {
@@ -45,7 +44,7 @@ function LoginModal({ articleIds, closeModal}) {
 }
 
 
-export default function LoginButton({ articleIds }) {
+export default function LoginButton() {
     const [modalIsShown, setModal] = React.useState(false);
     const openModal = () => setModal(true);
     const closeModal = () => setModal(false);
@@ -55,7 +54,6 @@ export default function LoginButton({ articleIds }) {
         </Button>
         {modalIsShown &&
         <LoginModal
-            articleIds={[]}
             closeModal={closeModal}/>}
     </React.Fragment>;
 }
