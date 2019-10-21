@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - 10
+script:
+  - sh .travis/backend_install_dev.sh
+  - sh .travis/backend_tests_and_lint.sh
+after_success:
+  - sh .travis/backend_deploy.sh
