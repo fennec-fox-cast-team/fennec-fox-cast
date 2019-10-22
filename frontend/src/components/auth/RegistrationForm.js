@@ -28,7 +28,7 @@ export default class RegistrationForm extends Component {
         }
         axios
             .post(
-                "http://localhost:5000/register",
+                "http://127.0.0.1:5000/apt/register",
                 {
                     email: email,
                     password: password,
