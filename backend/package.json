@@ -4,6 +4,7 @@
   "description": "Fennec Fox is a streaming platform which allows to communicate via voice or video with your friends or find new ones.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo tests",
     "lint": "eslint .",
     "deploy": "echo deploy"

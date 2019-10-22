@@ -8,8 +8,9 @@ const User = require('../models/user.js');
 exports.addUser = async req => {
     try {
         // console.log(req);
-        const user = new User(JSON.parse(req.body));
-
+        //const username = req.body['username'];
+        //const password = req.body['password'];
+        const user = new User(req.body);
         if (await User.findOne({ username: user.username })) {
             return { status: '409, Conflict', data: 'User already exists!' };
         }

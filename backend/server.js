@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 
 // Connect to DB
 mongoose
-    .connect(`mongodb+srv://${dbuser}:${dbpassword}@${dbhost}`, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(`mongodb://${dbuser}:${dbpassword}@${dbhost}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log('Connection error to MongoDB!', err));
 
