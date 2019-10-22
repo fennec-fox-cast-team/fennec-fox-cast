@@ -1,4 +1,4 @@
 #!/bin/sh
 cd backend/ || exit
-npm deploy
+npm run deploy
 cd ..

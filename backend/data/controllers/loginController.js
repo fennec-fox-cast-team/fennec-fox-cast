@@ -6,11 +6,14 @@ const User = require('../models/user.js');
 
 const fastify = require('../../server.js');
 
+const crypt = require('../../helpers/crypt.js');
+
+
 exports.login = async req => {
     try {
-        const data = JSON.parse(req.body);
-        const user = await User.findOne({ 'username': data.username, 'password': data.password });
-        if (user) {
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+        if (user && await crypt.compare(data.password, user.password)) {
             const token = fastify.jwt.sign(data);
             return { status: '200, Ok', data: token };
         }

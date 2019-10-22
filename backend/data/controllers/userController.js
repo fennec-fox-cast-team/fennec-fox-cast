@@ -6,7 +6,6 @@ const User = require('../models/user.js');
 
 // Get all users
 exports.getAllUsers = async () => {
-    console.log('ROMA POZHALUISTA!!!!!!!!!!!!!!!!!!\n\n')
     try {
         return { status: '200, Ok', data: await User.find() };
     } catch (err) {
@@ -28,8 +27,7 @@ exports.getUserById = async req => {
 exports.updateUserById = async req => {
     try {
         const id = req.params.id;
-        const user = JSON.parse(req.body);
-        const { ...updateData } = user;
+        const { ...updateData } = req.body;
         return { status: '200, Ok', data: await User.findByIdAndUpdate(id, updateData, { new: true }) };
     } catch (err) {
         throw boom.boomify(err);
@@ -49,7 +47,7 @@ exports.deleteUserById = async req => {
 // Delete user by username
 exports.deleteUserByUsername = async req => {
     try {
-        const username = JSON.parse(req.body).username;
+        const username = req.body.username;
         return { status: '200, Ok', data: await User.findOneAndRemove({ username }) };
     } catch (err) {
         throw boom.boomify(err);
