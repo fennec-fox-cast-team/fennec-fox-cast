@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Main from './pages/Main';
-import Contact from "./pages/Contact";
+import About from "./pages/About";
 import NavBar from "./components/NavigationBar";
 import './resources/styles/App.css';
 import Registration from "./components/auth/RegistrationForm";
@@ -36,7 +36,7 @@ function App() {
           <NavBar/>
           <Switch>
               <Route exact path="/" component={Main}/>
-              <Route exact path="/contact" component={Contact}/>
+              <Route exact path="/contact" component={About}/>
               <Route exact path="/register" component={Registration}/>
               <Route exact path="/login" component={Login}/>
           </Switch>
