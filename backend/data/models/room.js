@@ -8,7 +8,7 @@ const roomSchema = new mongoose.Schema({
     owner: ObjectId,
     members: [ObjectId],
     messages: [],
-    connections: []
+    connections: [],
 });
 
 module.exports = mongoose.model('Room', roomSchema);

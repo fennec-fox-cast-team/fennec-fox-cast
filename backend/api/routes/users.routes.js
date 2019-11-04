@@ -11,23 +11,23 @@ const routes = [
     {
         method: 'GET',
         url: '/api/users/:id',
-        handler: userController.getUserById
+        handler: userController.getUserById,
     },
     {
         method: 'POST',
         url: '/api/users/:id',
-        handler: userController.updateUserById
+        handler: userController.updateUserById,
     },
     {
         method: 'DELETE',
         url: '/api/users/:id',
-        handler: userController.deleteUserById
+        handler: userController.deleteUserById,
     },
     {
         method: 'DELETE',
         url: '/api/users/username',
-        handler: userController.deleteUserByUsername
-    }
+        handler: userController.deleteUserByUsername,
+    },
 ];
 
 module.exports = routes;

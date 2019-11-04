@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     friends: [ObjectId],
     state: String,
-    salt: String
+    token: String,
 });
 
 module.exports = mongoose.model('User', userSchema);
