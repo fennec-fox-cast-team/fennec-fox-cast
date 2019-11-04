@@ -4,6 +4,8 @@ const boom = require('@hapi/boom');
 
 const User = require('../models/user.js');
 
+const crypt = require('../../helpers/crypt.js');
+
 // Get all users
 exports.getAllUsers = async () => {
     try {
@@ -13,42 +15,50 @@ exports.getAllUsers = async () => {
     }
 };
 
-// Get single user by ID
-exports.getUserById = async req => {
+// Get single user by username and password
+exports.getUserByUsername = async req => {
     try {
-        const id = req.params.id;
-        return { status: '200, Ok', data: await User.findById(id) };
+        const data = req.body;
+        console.log('\n\n');
+        console.dir(data);
+        console.log('\n\n');
+        const user = await User.findOne({ 'username': data.username });
+        if (user && await crypt.compare(data.password, user.password)) {
+            return { status: '200, Ok', data: user };
+        } else {
+            return { status: '404', data: 'Item not found!' };
+        }
     } catch (err) {
         throw boom.boomify(err);
     }
 };
 
 // Update an existing user
-exports.updateUserById = async req => {
+exports.updateUserByUsername = async req => {
     try {
-        const id = req.params.id;
-        const { ...updateData } = req.body;
-        return { status: '200, Ok', data: await User.findByIdAndUpdate(id, updateData, { new: true }) };
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+        if (user && await crypt.compare(data.password, user.password)) {
+            return { status: '200, Ok', data: await User.findOneAndUpdate(user.id, data.update, { new: true }) };
+        } else {
+            return { status: '404', data: 'Item not found!' };
+        }
     } catch (err) {
         throw boom.boomify(err);
     }
 };
 
-// Delete user by Id
-exports.deleteUserById = async req => {
-    try {
-        const id = req.params.id;
-        return { status: '200, Ok', data: await User.findByIdAndRemove(id) };
-    } catch (err) {
-        throw boom.boomify(err);
-    }
-};
 
-// Delete user by username
+// Delete user by username and password
 exports.deleteUserByUsername = async req => {
     try {
-        const username = req.body.username;
-        return { status: '200, Ok', data: await User.findOneAndRemove({ username }) };
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+        if (user && await crypt.compare(data.password, user.password)) {
+            return { status: '200, Ok', data: await User.findOneAndRemove(user.id) };
+        } else {
+            return { status: '404', data: 'Item not found!' };
+        }
     } catch (err) {
         throw boom.boomify(err);
     }

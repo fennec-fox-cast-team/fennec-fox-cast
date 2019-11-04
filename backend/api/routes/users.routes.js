@@ -5,27 +5,22 @@ const userController = require('../../data/controllers/userController.js');
 const routes = [
     {
         method: 'GET',
-        url: '/api/users',
+        url: '/api/users/',
         handler: userController.getAllUsers
     },
     {
-        method: 'GET',
-        url: '/api/users/:id',
-        handler: userController.getUserById,
+        method: 'POST',
+        url: '/api/GetUserByUsername/',
+        handler: userController.getUserByUsername,
     },
     {
         method: 'POST',
-        url: '/api/users/:id',
-        handler: userController.updateUserById,
+        url: '/api/UpdateUserByUsername/',
+        handler: userController.updateUserByUsername,
     },
     {
         method: 'DELETE',
-        url: '/api/users/:id',
-        handler: userController.deleteUserById,
-    },
-    {
-        method: 'DELETE',
-        url: '/api/users/username',
+        url: '/api/DeleteUserByUsername/',
         handler: userController.deleteUserByUsername,
     },
 ];

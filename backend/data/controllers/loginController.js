@@ -28,7 +28,7 @@ exports.logout = async req => {
     try {
         const data = req.body;
         const user = await User.findOne({ 'username': data.username });
-        if (user) {
+        if (user  && await crypt.compare(data.password, user.password)) {
             await User.findByIdAndUpdate(user.id, { token: '', status: 'offline' }, { new: true });
             return { status: '200, Ok' };
         }
