@@ -1,18 +1,20 @@
 'use strict';
 
+const { dbhost, dbpassword, dbuser } = require('./config/db.js');
+
+
 const fastify = require('fastify')({
     logger: true
 });
-
 const swagger = require('./config/swagger.js');
 
-const { dbhost, dbpassword, dbuser } = require('./config/db.js');
 
 fastify.register(require('fastify-swagger'), swagger.options);
 
 fastify.register(require('fastify-jwt'), {
     secret: 'supersecret'
 });
+
 
 const mongoose = require('mongoose');
 
@@ -25,5 +27,6 @@ mongoose
     })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log('Connection error to MongoDB!', err));
+
 
 module.exports = fastify;

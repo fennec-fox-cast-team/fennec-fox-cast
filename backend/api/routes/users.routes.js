@@ -3,10 +3,11 @@
 const userController = require('../../data/controllers/userController.js');
 
 const routes = [
+    // temp route
     {
         method: 'GET',
         url: '/api/users/',
-        handler: userController.getAllUsers
+        handler: userController.getAllUsers,
     },
     {
         method: 'POST',

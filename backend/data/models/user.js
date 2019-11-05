@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     friends: [ObjectId],
     state: String,
     token: String,
+    rooms: [ObjectId],
 });
 
 module.exports = mongoose.model('User', userSchema);
