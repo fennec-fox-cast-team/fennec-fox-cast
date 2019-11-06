@@ -66,6 +66,3 @@ typings/
 
 # config files
 backend/config/db.js
-
-# package-lock file
-package-lock.json

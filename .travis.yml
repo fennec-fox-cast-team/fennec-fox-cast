@@ -1,8 +1,11 @@
 language: node_js
 node_js:
   - 10
-script:
-  - sh .travis/backend_install_dev.sh
-  - sh .travis/backend_tests_and_lint.sh
-after_success:
-  - sh .travis/backend_deploy.sh
+jobs:
+  include:
+    - stage: "Install Dependency"
+      script: sh .travis/backend_install_dev.sh
+    - stage: test
+      script: sh .travis/backend_tests_and_lint.sh
+    - stage: deploy
+      script: sh .travis/backend_deploy.sh
