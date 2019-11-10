@@ -33,6 +33,36 @@ exports.getUserByUsername = async req => {
     }
 };
 
+exports.getAllFriendsForUser = async req => {
+    try {
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+
+        if (user && await crypt.compare(data.password, user.password)) {
+            return { status: '200, Ok', data: user.friends };
+        } else {
+            return { status: '404', data: 'User not found!' };
+        }
+    } catch (err) {
+        throw boom.boomify(err);
+    }
+};
+
+exports.getAllRoomsForUser = async req => {
+    try {
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+
+        if (user && await crypt.compare(data.password, user.password)) {
+            return { status: '200, Ok', data: user.rooms };
+        } else {
+            return { status: '404', data: 'User not found!' };
+        }
+    } catch (err) {
+        throw boom.boomify(err);
+    }
+};
+
 // Update an existing user
 exports.updateUserByUsername = async req => {
     try {

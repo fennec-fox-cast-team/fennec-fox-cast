@@ -25,6 +25,16 @@ const routes = [
         handler: userController.addFriendToUser,
     },
     {
+        method: 'POST',
+        url: '/api/GetAllFriendsForUser/',
+        handler: userController.getAllFriendsForUser,
+    },
+    {
+        method: 'POST',
+        url: '/api/GetAllRoomsForUser/',
+        handler: userController.getAllRoomsForUser,
+    },
+    {
         method: 'DELETE',
         url: '/api/DeleteUserByUsername/',
         handler: userController.deleteUserByUsername,
