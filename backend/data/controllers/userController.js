@@ -49,6 +49,58 @@ exports.updateUserByUsername = async req => {
     }
 };
 
+exports.addFriendToUser = async req => {
+    try {
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+
+        if (user && await crypt.compare(data.password, user.password)) {
+            const friend = await User.findById(data.friendId);
+            if (friend && (user.friends.indexOf(friend._id) === -1)) {
+                user.friends.push(friend._id);
+                await user.save();
+
+                friend.friends.push(user._id);
+                await friend.save();
+
+                return { status: '200, Ok' };
+            } else {
+                return { status: '404', data: 'Friend not found or already is friend!' };
+            }
+        } else {
+            return { status: '404', data: 'User not found!' };
+        }
+    } catch (err) {
+        throw boom.boomify(err);
+    }
+};
+
+exports.deleteFriend = async req => {
+    try {
+        const data = req.body;
+        const user = await User.findOne({ 'username': data.username });
+
+        if (user && await crypt.compare(data.password, user.password)) {
+            const friend = await User.findById(data.friendId);
+
+            let index = user.friends.indexOf(data.friendId);
+            if (index > -1) user.friends.splice(index, 1);
+
+            await user.save();
+
+            index = friend.friends.indexOf(user._id);
+            if (index > -1) friend.friends.splice(index, 1);
+
+            friend.save();
+
+            return { status: '200, Ok' };
+        } else {
+            return { status: '404', data: 'User not found!' };
+        }
+    } catch (err) {
+        throw boom.boomify(err);
+    }
+};
 
 // Delete user by username and password
 exports.deleteUserByUsername = async req => {

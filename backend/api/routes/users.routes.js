@@ -20,9 +20,19 @@ const routes = [
         handler: userController.updateUserByUsername,
     },
     {
+        method: 'POST',
+        url: '/api/addFriendToUser/',
+        handler: userController.addFriendToUser,
+    },
+    {
         method: 'DELETE',
         url: '/api/DeleteUserByUsername/',
         handler: userController.deleteUserByUsername,
+    },
+    {
+        method: 'DELETE',
+        url: '/api/deleteFriend/',
+        handler: userController.deleteFriend,
     },
 ];
 
