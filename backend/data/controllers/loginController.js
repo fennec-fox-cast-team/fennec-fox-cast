@@ -19,7 +19,7 @@ exports.login = async req => {
 
             const friendsUsernames = [];
             for (const friendId of user.friends) {
-                const friend = User.findById(friendId);
+                const friend = await User.findById(friendId);
                 friendsUsernames.push(friend.username);
             }
             return { status: '200, Ok', data: { token, 'username': user.username, friendsUsernames } };
