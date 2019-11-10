@@ -16,7 +16,13 @@ exports.login = async req => {
         if (user && await crypt.compare(data.password, user.password)) {
             const token = fastify.jwt.sign(data);
             await User.findByIdAndUpdate(user.id, { token, status: 'online' }, { new: true });
-            return { status: '200, Ok', data: token };
+
+            const friendsUsernames = [];
+            for (const friendId of user.friends) {
+                const friend = User.findById(friendId);
+                friendsUsernames.push(friend.username);
+            }
+            return { status: '200, Ok', data: { token, 'username': user.username, friendsUsernames } };
         }
         return { status: '404', data: 'Item not found!' };
     } catch (err) {
