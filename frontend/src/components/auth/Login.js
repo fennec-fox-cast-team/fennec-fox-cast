@@ -6,7 +6,7 @@ import LoginForm from "./LoginForm";
 import sendRequest from "../../functions/SendRequest";
 
 
-function LoginModal({ articleIds, closeModal}) {
+function LoginModal({ closeModal }) {
     const [state, setState] = React.useState({ok: null,
         value: null,
         statusText: null,
@@ -14,17 +14,32 @@ function LoginModal({ articleIds, closeModal}) {
     const {ok, loading, value} = state;
     const error = (value && value.error) || state.statusText;
 
-    const startExport = () => {
-        sendRequest('https://google.com',{method: 'GET'}).then(response => console.log(response))
+    const startLogin = (login_data) => {
+        //sendRequest('api/users/', {method: 'GET'}).then(response => console.log((response)));
+        sendRequest('api/login/',{method: 'POST', body: JSON.stringify(login_data) })
+            .then(response => {
+                if (response.status === 200){
+                    localStorage.setItem('jwt_token', response.value.data);
+                }
+                console.log(response);
+                setState(response)
+
+        })
     };
 
     return <Modal show animation={false} onHide={closeModal}>
         <Modal.Header closeButton>
-            <Modal.Title>Export articles</Modal.Title>
+            <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <LoginForm/>
+            {ok === false &&
+            <p className="alert alert-danger">Error: {error}</p>}
+            {ok &&
+            <p>Login successfully!</p>}
+            {ok === null &&
+            <LoginForm/>}
         </Modal.Body>
+
         {ok === null ?
             <Modal.Footer>
                 <LoadingButton
@@ -32,7 +47,7 @@ function LoginModal({ articleIds, closeModal}) {
                     workingMessage="Exporting"
                     disabled={loading}
                     working={loading}
-                    onClick={startExport}>
+                    onClick={() => startLogin({username: 'Ivan', password: 'ivan'})}>
                     Login
                 </LoadingButton>
                 <Button style={{background:"#6c757d"}} onClick={closeModal}>Cancel</Button>

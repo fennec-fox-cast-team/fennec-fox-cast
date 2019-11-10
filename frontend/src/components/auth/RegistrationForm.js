@@ -1,14 +1,16 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import sendRequest from '../../functions/SendRequest';
 
 export default class RegistrationForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            email: "",
-            password: "",
-            registrationErrors: ""
+            username: '',
+            password: '',
+            registrationErrors: '',
+            successful: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,26 +24,17 @@ export default class RegistrationForm extends Component {
     }
 
     handleSubmit(event) {
-        const { email, password, password_confirmation } = this.state;
+        const { username, password, password_confirmation } = this.state;
         if (password !== password_confirmation){
             return;
         }
-        axios
-            .post(
-                "api/register",
-                {
-                    username: email,
-                    password: password,
-                },
-                { withCredentials: true }
-            )
+        sendRequest('api/register/', {method: 'POST', body: JSON.stringify({username, password})})
             .then(response => {
-                if (response.data.status === "created") {
-                    this.props.handleSuccessfulAuth(response.data);
+                console.log(response)
+                if (response.status === 200){
+                    this.setState({successful: true})
+                    console.log(this.state.successful)
                 }
-            })
-            .catch(error => {
-                console.log("registration error", error);
             });
         event.preventDefault();
     }
@@ -49,16 +42,18 @@ export default class RegistrationForm extends Component {
     render() {
         return (
             <div>
+                {this.state.successful ? <Redirect to={'/'}/>
+                    :
                 <form onSubmit={this.handleSubmit}>
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={this.state.email}
+                        type="name"
+                        name="username"
+                        placeholder="Username"
+                        value={this.state.username}
                         onChange={this.handleChange}
                         required
                     />
-
+                    <br/>
                     <input
                         type="password"
                         name="password"
@@ -67,7 +62,7 @@ export default class RegistrationForm extends Component {
                         onChange={this.handleChange}
                         required
                     />
-
+                    <br/>
                     <input
                         type="password"
                         name="password_confirmation"
@@ -76,9 +71,9 @@ export default class RegistrationForm extends Component {
                         onChange={this.handleChange}
                         required
                     />
-
+                    <br/>
                     <button type="submit">Register</button>
-                </form>
+                </form>}
             </div>
         );
     }
