@@ -6,7 +6,7 @@ export default class LoginForm extends Component {
         super(props);
 
         this.state = {
-            email: "",
+            username: "",
             password: "",
             loginErrors: ""
         };
@@ -16,13 +16,19 @@ export default class LoginForm extends Component {
     }
 
     handleChange(event) {
+        if (event.target.type === 'text'){
+            localStorage.setItem('username', event.target.value)
+        }
+        if (event.target.type === 'password'){
+            localStorage.setItem('password', event.target.value)
+        }
         this.setState({
             [event.target.name]: event.target.value
         });
     }
 
     handleSubmit(event) {
-        const { email, password } = this.state;
+        const {username, password} = this.state;
         event.preventDefault();
     }
 
@@ -31,12 +37,12 @@ export default class LoginForm extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={this.state.email}
+                        type="username"
+                        name="username"
+                        placeholder="Username"
+                        value={this.state.username}
                         onChange={this.handleChange}
-                        required
+                        required={true}
                     />
                     <br/>
                     <input

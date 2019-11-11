@@ -39,7 +39,13 @@ exports.getAllFriendsForUser = async req => {
         const user = await User.findOne({ 'username': data.username });
 
         if (user && await crypt.compare(data.password, user.password)) {
-            return { status: '200, Ok', data: user.friends };
+            const friendsUsername = [];
+            for (const friendId of user.friends) {
+                const friend = await User.findById(friendId);
+                friendsUsername.push(friend.username);
+            }
+
+            return { status: '200, Ok', data: friendsUsername };
         } else {
             return { status: '404', data: 'User not found!' };
         }

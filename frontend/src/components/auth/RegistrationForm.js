@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import sendRequest from '../../functions/SendRequest';
+import '../../resources/styles/App.css'
 
 export default class RegistrationForm extends Component {
     constructor(props) {
@@ -30,10 +31,8 @@ export default class RegistrationForm extends Component {
         }
         sendRequest('api/register/', {method: 'POST', body: JSON.stringify({username, password})})
             .then(response => {
-                console.log(response)
                 if (response.status === 200){
-                    this.setState({successful: true})
-                    console.log(this.state.successful)
+                    this.setState({successful: true});
                 }
             });
         event.preventDefault();
@@ -44,8 +43,9 @@ export default class RegistrationForm extends Component {
             <div>
                 {this.state.successful ? <Redirect to={'/'}/>
                     :
-                <form onSubmit={this.handleSubmit}>
+                <form className='registration_from' onSubmit={this.handleSubmit}>
                     <input
+                        className='registration_username'
                         type="name"
                         name="username"
                         placeholder="Username"
@@ -55,6 +55,7 @@ export default class RegistrationForm extends Component {
                     />
                     <br/>
                     <input
+                        className='registration_password'
                         type="password"
                         name="password"
                         placeholder="Password"
@@ -64,6 +65,7 @@ export default class RegistrationForm extends Component {
                     />
                     <br/>
                     <input
+                        className='registration_password'
                         type="password"
                         name="password_confirmation"
                         placeholder="Password confirmation"
@@ -72,7 +74,7 @@ export default class RegistrationForm extends Component {
                         required
                     />
                     <br/>
-                    <button type="submit">Register</button>
+                    <button className='registration_submit' type="submit">Register</button>
                 </form>}
             </div>
         );

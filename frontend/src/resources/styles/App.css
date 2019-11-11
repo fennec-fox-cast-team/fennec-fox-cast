@@ -55,3 +55,50 @@ body {
     margin-left: 5%;
     max-width: 80%;
 }
+
+.registration_username {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.registration_password {
+  width: 100%;
+  padding: 12px 20px;
+  background: #cccccc;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.registration_submit {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.registration_submit:hover {
+  background-color: #45a049;
+}
+
+.friendsTable {
+  border: 2px solid #FF9900;
+}
+
+
+.registration_from {
+  margin-left: 30%;
+  font-size: 150%;
+  max-width: 40%;
+}

@@ -15,13 +15,13 @@ function App() {
     const {logged_in} = state;
 
     function checkLoginStatus(){
+        /*
         sendRequest('http://localhost:5000/check_in')
             .then(response =>{
                 if (response.logged_in){
                     setState(prevState => ({...prevState, logged_in:true}));
                 }
-                console.log(response);
-            })
+            })*/
     }
 
   useEffect(() => {

@@ -15,15 +15,22 @@ function LoginModal({ closeModal }) {
     const error = (value && value.error) || state.statusText;
 
     const startLogin = (login_data) => {
+        console.log(login_data)
         //sendRequest('api/users/', {method: 'GET'}).then(response => console.log((response)));
         sendRequest('api/login/',{method: 'POST', body: JSON.stringify(login_data) })
             .then(response => {
-                if (response.status === 200){
-                    localStorage.setItem('jwt_token', response.value.data);
+                if (response.value.status === "200, Ok"){
+                    localStorage.setItem('jwt_token', response.value.data.token);
+                    localStorage.setItem('username', login_data.username);
+                    localStorage.setItem('friendsNames', JSON.stringify(response.value.data.friendsUsernames));
+                    setState(response)
+                    window.location.reload();
                 }
-                console.log(response);
-                setState(response)
-
+                else {
+                    console.log(response.value);
+                    setState(response.value);
+                    console.log(error)
+                }
         })
     };
 
@@ -47,7 +54,8 @@ function LoginModal({ closeModal }) {
                     workingMessage="Exporting"
                     disabled={loading}
                     working={loading}
-                    onClick={() => startLogin({username: 'Ivan', password: 'ivan'})}>
+                    onClick={() => startLogin({username: localStorage.getItem('username'),
+                        password: localStorage.getItem('password')})}>
                     Login
                 </LoadingButton>
                 <Button style={{background:"#6c757d"}} onClick={closeModal}>Cancel</Button>
