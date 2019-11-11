@@ -3,25 +3,16 @@
 require('dotenv').config();
 
 // Import Server
-const fastify = require('./server.js');
+const fastify = require('./lib/server.js');
 
 // Import routes
-const routes = require('./api/routes/routes.js');
+const routes = require('./lib/api/routes/routes.js');
+
 
 routes.forEach(route => {
     fastify.route(route);
 });
 
-fastify.register(require('fastify-websocket'));
-
-fastify.get('/ws/', { websocket: true }, (connection, req) => {
-    connection.socket.on('message', message => {
-        // message === 'hi from client'
-        console.log('msg >>>', message);
-        console.dir({ 'req >>>': req });
-        connection.socket.send('hi from server');
-    });
-});
 
 const start = async () => {
     try {
