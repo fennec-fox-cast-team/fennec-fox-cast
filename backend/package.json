@@ -30,6 +30,7 @@
     "fastify-jwt": "^1.1.0",
     "fastify-swagger": "^2.4.0",
     "fastify-websocket": "^0.6.0",
-    "mongoose": "^5.7.5"
+    "mongoose": "^5.7.5",
+    "socket.io": "^2.3.0"
   }
 }

@@ -9,7 +9,7 @@
 </style>
 <script>
     const CHAR_RETURN = 13;
-    const socket = new WebSocket('ws://127.0.0.1:5000/chat');
+    const socket = new WebSocket('wss://127.0.0.1:5000/chat');
     const chat = document.getElementById('chat');
     const msg = document.getElementById('msg');
     msg.focus();
