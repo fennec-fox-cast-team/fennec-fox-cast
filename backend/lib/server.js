@@ -38,6 +38,10 @@ fastify.get('/client', (req, reply) => {
     reply.type('text/html').send(stream);
 });
 
+fastify.get('/video-audio', (req, reply) => {
+    const stream = fs.createReadStream('./templates/video-audio.html');
+    reply.type('text/html').send(stream);
+});
 
 fastify.get('/chat', { websocket: true }, connection => {
     if (clients.indexOf(connection) === -1) {

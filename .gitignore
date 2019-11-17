@@ -66,3 +66,4 @@ typings/
 
 # config files
 backend/config/db.js
+backend/lib/config/db.js
