@@ -1,7 +1,6 @@
 'use strict';
 
 const boom = require('@hapi/boom');
-const crypt = require('../../helpers/crypt.js');
 
 const Room = require('../models/room.js');
 const User = require('../models/user.js');
@@ -9,21 +8,24 @@ const User = require('../models/user.js');
 exports.createNewRoom = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
-            const room = new Room({ name: data.name, owner: user._id });
+        if (user && data.token !== '') {
+            const room = new Room({ name: data.name, owner: user._id, messages: [], connections: [], members: [] });
 
-            if (await Room.findOne(room)) {
+            if (await Room.findOne({ name: data.name, owner: user._id })) {
                 return { status: '409, Conflict', data: 'Room already exists!' };
             } else {
-                // eslint-disable-next-line require-atomic-updates
-                room.members = data.members ? data.members : [];
-                room.members.push(user._id);
+                data.members.push(user._id);
 
-                for (const memberID of room.members) {
+                for (const memberID of data.members) {
                     const member = await User.findById(memberID);
+
+                    if (!member) continue;
+
                     member.rooms.push(room._id);
+                    room.members.push(memberID);
+
                     await member.save();
                 }
 
@@ -40,14 +42,13 @@ exports.createNewRoom = async req => {
 exports.addRoomMembers = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
         const room = await Room.findById(data.room_id);
 
-        if (user.rooms.indexOf(data.room_id) === -1) {
-            return { status: '404', data: 'Room not found!' };
-        }
-
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
+            if (user.rooms.indexOf(data.room_id) === -1 && !room) {
+                return { status: '404', data: 'Room not found!' };
+            }
 
             // then we must add room._id for each users
             for (const memberID of data.members) {
@@ -73,9 +74,9 @@ exports.addRoomMembers = async req => {
 exports.GetAllRoomIdForUser = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             return { status: '200, Ok', data: user.rooms };
         } else {
             return { status: '404', data: 'User not found!' };
@@ -88,9 +89,9 @@ exports.GetAllRoomIdForUser = async req => {
 exports.GetAllRoomsForUser = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             const rooms = [];
             for (const roomID of user.rooms) {
                 rooms.push(await Room.findById(roomID));
@@ -116,9 +117,9 @@ exports.GetAllRooms = async () => {
 exports.DeleteRoom = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             const room = await Room.findById(data.room_id);
 
             if (!room) return { status: '404', data: 'Room not found!' };

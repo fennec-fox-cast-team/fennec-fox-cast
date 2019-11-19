@@ -5,10 +5,9 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema({
     username: String,
-    email: String,
     password: String,
     friends: [ObjectId],
-    state: String,
+    status: String,
     token: String,
     rooms: [ObjectId],
 });

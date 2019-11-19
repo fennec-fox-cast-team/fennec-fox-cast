@@ -44,6 +44,11 @@ const routes = [
         url: '/api/deleteFriend/',
         handler: userController.deleteFriend,
     },
+    {
+        method: 'DELETE',
+        url: '/api/deleteAllUser/',
+        handler: userController.DeleteAllUser,
+    },
 ];
 
 module.exports = routes;

@@ -13,6 +13,7 @@ exports.login = async req => {
     try {
         const data = req.body;
         const user = await User.findOne({ 'username': data.username });
+
         if (user && await crypt.compare(data.password, user.password)) {
             const token = fastify.jwt.sign(data);
             await User.findByIdAndUpdate(user.id, { token, status: 'online' }, { new: true });
@@ -24,7 +25,7 @@ exports.login = async req => {
             }
             return { status: '200, Ok', data: { token, 'username': user.username, friendsUsernames } };
         }
-        return { status: '404', data: 'Item not found!' };
+        return { status: '404', data: 'User not found!' };
     } catch (err) {
         throw boom.boomify(err);
     }
@@ -33,13 +34,13 @@ exports.login = async req => {
 exports.logout = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user  && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             await User.findByIdAndUpdate(user.id, { token: '', status: 'offline' }, { new: true });
             return { status: '200, Ok' };
         }
-        return { status: '404', data: 'Item not found!' };
+        return { status: '404', data: 'User not found!' };
     } catch (err) {
         throw boom.boomify(err);
     }

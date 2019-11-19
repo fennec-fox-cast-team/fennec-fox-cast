@@ -1,7 +1,6 @@
 'use strict';
 
 const boom = require('@hapi/boom');
-const crypt = require('../../helpers/crypt.js');
 
 const User = require('../models/user.js');
 const Room = require('../models/room.js');
@@ -21,9 +20,9 @@ exports.getAllUsers = async () => {
 exports.getUserByUsername = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             return { status: '200, Ok', data: user };
         } else {
             return { status: '404', data: 'User not found!' };
@@ -36,9 +35,9 @@ exports.getUserByUsername = async req => {
 exports.getAllFriendsForUser = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             const friendsUsername = [];
             for (const friendId of user.friends) {
                 const friend = await User.findById(friendId);
@@ -57,9 +56,9 @@ exports.getAllFriendsForUser = async req => {
 exports.getAllRoomsForUser = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             return { status: '200, Ok', data: user.rooms };
         } else {
             return { status: '404', data: 'User not found!' };
@@ -73,9 +72,16 @@ exports.getAllRoomsForUser = async req => {
 exports.updateUserByUsername = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
+            const toUpdateData = data.update;
+
+            // eslint-disable-next-line no-prototype-builtins
+            if (toUpdateData.hasOwnProperty('token')) {
+                delete toUpdateData['token'];
+            }
+
             return { status: '200, Ok', data: await User.findByIdAndUpdate(user._id, data.update, { new: true }) };
         } else {
             return { status: '404', data: 'User not found!' };
@@ -88,11 +94,12 @@ exports.updateUserByUsername = async req => {
 exports.addFriendToUser = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             const friend = await User.findById(data.friendId);
-            if (friend && (user.friends.indexOf(friend._id) === -1)) {
+
+            if (friend && (user.friends.indexOf(friend._id) === -1) && !user._id.equals(data.friendId)) {
                 user.friends.push(friend._id);
                 await user.save();
 
@@ -114,9 +121,9 @@ exports.addFriendToUser = async req => {
 exports.deleteFriend = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             const friend = await User.findById(data.friendId);
 
             let index = user.friends.indexOf(data.friendId);
@@ -127,7 +134,7 @@ exports.deleteFriend = async req => {
             index = friend.friends.indexOf(user._id);
             if (index > -1) friend.friends.splice(index, 1);
 
-            friend.save();
+            await friend.save();
 
             return { status: '200, Ok' };
         } else {
@@ -142,9 +149,9 @@ exports.deleteFriend = async req => {
 exports.deleteUserByUsername = async req => {
     try {
         const data = req.body;
-        const user = await User.findOne({ 'username': data.username });
+        const user = await User.findOne({ 'username': data.username, token: data.token });
 
-        if (user && await crypt.compare(data.password, user.password)) {
+        if (user && data.token !== '') {
             for (const roomID of user.rooms) {
                 const room = await Room.findById(roomID);
 
@@ -166,10 +173,30 @@ exports.deleteUserByUsername = async req => {
                 }
             }
 
+            for (const friendId of user.friends) {
+                const friend = await User.findById(friendId);
+
+                if (!friend) continue;
+
+                const index = friend.friends.indexOf(user._id);
+                if (index > -1) friend.friends.splice(index, 1);
+
+                await friend.save();
+            }
+
             return { status: '200, Ok', data: await User.findByIdAndRemove(user._id) };
         } else {
             return { status: '404', data: 'User not found!' };
         }
+    } catch (err) {
+        throw boom.boomify(err);
+    }
+};
+
+exports.DeleteAllUser = async () => {
+    try {
+        await User.remove();
+        return { status: '200, Ok' };
     } catch (err) {
         throw boom.boomify(err);
     }
