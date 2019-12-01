@@ -2,10 +2,10 @@
 
 const boom = require('@hapi/boom');
 
-const User = require('../models/user.js');
-const Room = require('../models/room.js');
+const User = require('../../data/models/user.js');
+const Room = require('../../data/models/room.js');
 
-const { DeleteRoom } = require('../controllers/roomController.js');
+const { DeleteRoom } = require('./roomController.js');
 
 // Get all users
 exports.getAllUsers = async () => {

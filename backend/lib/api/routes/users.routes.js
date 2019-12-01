@@ -1,6 +1,6 @@
 'use strict';
 
-const userController = require('../../data/controllers/userController.js');
+const userController = require('../controllers/userController.js');
 
 const routes = [
     // temp route

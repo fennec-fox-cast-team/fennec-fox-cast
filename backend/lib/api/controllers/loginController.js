@@ -2,7 +2,7 @@
 
 const boom = require('@hapi/boom');
 
-const User = require('../models/user.js');
+const User = require('../../data/models/user.js');
 
 const fastify = require('../../server.js');
 

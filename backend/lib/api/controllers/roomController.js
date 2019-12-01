@@ -2,8 +2,8 @@
 
 const boom = require('@hapi/boom');
 
-const Room = require('../models/room.js');
-const User = require('../models/user.js');
+const Room = require('../../data/models/room.js');
+const User = require('../../data/models/user.js');
 
 exports.createNewRoom = async req => {
     try {

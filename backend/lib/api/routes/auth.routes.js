@@ -1,7 +1,7 @@
 'use strict';
 
-const loginController = require('../../data/controllers/loginController.js');
-const registerController = require('../../data/controllers/registerController.js');
+const loginController = require('../controllers/loginController.js');
+const registerController = require('../controllers/registerController.js');
 
 const routes = [
     {

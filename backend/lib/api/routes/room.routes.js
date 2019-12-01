@@ -1,6 +1,6 @@
 'use strict';
 
-const roomController = require('../../data/controllers/roomController.js');
+const roomController = require('../controllers/roomController.js');
 
 const routes = [
     {
