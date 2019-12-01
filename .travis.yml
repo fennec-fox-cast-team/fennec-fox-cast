@@ -5,4 +5,4 @@ script:
   - bash .travis/backend_install_dev.sh || travis_terminate 1;
   - bash .travis/backend_tests_and_lint.sh || travis_terminate 1;
 after_success:
-  - bash .travis/backend_deploy.sh || travis_terminate 1;
+  - (test “$TRAVIS_BRANCH” = “master” || test “$TRAVIS_BRANCH” = “Backend”) && bash .travis/backend_deploy.sh;
