@@ -65,6 +65,10 @@ typings/
 .idea
 
 # config files
-backend/config/db.js
+backend/config/
 backend/lib/config/db.js
+<<<<<<< HEAD
 #backend/lib/config/security/
+=======
+
+>>>>>>> fd34c250a885f2a717fb97f2340b430ba21fa487
