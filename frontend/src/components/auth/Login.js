@@ -15,7 +15,7 @@ function LoginModal({ closeModal }) {
     const error = (value && value.error) || state.statusText;
 
     const startLogin = (login_data) => {
-        console.log(login_data)
+        console.log(login_data);
         //sendRequest('api/users/', {method: 'GET'}).then(response => console.log((response)));
         sendRequest('api/login/',{method: 'POST', body: JSON.stringify(login_data) })
             .then(response => {

@@ -97,9 +97,9 @@ exports.addFriendToUser = async req => {
         const user = await User.findOne({ 'username': data.username, token: data.token });
 
         if (user && data.token !== '') {
-            const friend = await User.findById(data.friendId);
+            const friend = await User.findOne({ 'username': data.friendName });
 
-            if (friend && (user.friends.indexOf(friend._id) === -1) && !user._id.equals(data.friendId)) {
+            if (friend && (user.friends.indexOf(friend._id) === -1) && !user._id.equals(friend._id)) {
                 user.friends.push(friend._id);
                 await user.save();
 

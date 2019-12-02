@@ -3,12 +3,12 @@
 const fs = require('fs');
 
 const mongoose = require('mongoose');
-const { dbhost, dbpassword, dbuser } = require('./config/db.js');
+const { dbhost, dbpassword, dbuser } = require('./../config/db.js');
 
 const fastify = require('fastify')({
     https: {
-        key: fs.readFileSync('./lib/config/security/key.pem'),
-        cert: fs.readFileSync('./lib/config/security/cert.pem')
+        key: fs.readFileSync('./config/security/key.pem'),
+        cert: fs.readFileSync('./config/security/cert.pem')
     },
     logger: true
 });
