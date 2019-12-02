@@ -34,7 +34,7 @@ import AddFriend from  '../components/AddFriend'
                  if (this.state.response === null) {
                      let listFriends;
                      if (this.state.friends_list.length === 0){
-                         listFriends = <div>Sorry, you don't have friends yet.</div>
+                         listFriends = <div>No friends yet...</div>
                      } else {
                          listFriends= this.state.friends_list.map((friend) =>
                              <li>{friend}</li>

@@ -14,6 +14,19 @@ function addFriend(name){
     })
 }
 
+function deleteFriend(name){
+    sendRequest('/api/deleteFriend/', {method: 'DELETE',
+        body: JSON.stringify({username: localStorage.username, token: localStorage.jwt_token, friendName: name})
+    }).then(response => {
+        if (response.value.status === '200, Ok'){
+            alert('Friend, ' + name + ' deleted!\nRefresh the page please.')
+        }
+        else {
+            alert(response.value.data)
+        }
+    })
+}
+
 class AddFriends extends React.Component {
 
 
@@ -23,6 +36,9 @@ class AddFriends extends React.Component {
             <input id={'friendName'} ref={'friendName'}/>
             <br/>
             <button onClick={() => addFriend(this.refs.friendName.value)}>Add</button>
+            <button onClick={() => deleteFriend(this.refs.friendName.value)}>Delete</button>
+            <br/>
+            <br/>
         </div>
     }
 }
