@@ -30,7 +30,9 @@ fastify.register(require('fastify-jwt'), {
     secret: process.env.SECRET_KEY || 'supersecret'
 });
 
-fastify.get('/chat', (req, reply) => {
+
+fastify.get('/chat/:uid', (req, reply) => {
+    // eslint-disable-next-line no-undef
     const stream = fs.createReadStream('./templates/chat.html');
     reply.type('text/html').send(stream);
 });

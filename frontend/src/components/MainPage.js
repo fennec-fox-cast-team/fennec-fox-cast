@@ -37,12 +37,13 @@ import AddFriend from  '../components/AddFriend'
                          listFriends = <div>No friends yet...</div>
                      } else {
                          listFriends= this.state.friends_list.map((friend) =>
-                             <li>{friend}</li>
+                             <div>
+                                <li>{friend} => <a href={"https://10.25.129.244:5000/chat/" + 'dima'} >Call</a></li>
+                             </div>
                          );
                      }
 
                      return <div><AddFriend/>{listFriends}</div>
-                 // Render loading state ...
                 } else {
                      return <div><AddFriend/>Loading, please wait!</div>
                 }
