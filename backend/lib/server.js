@@ -3,17 +3,8 @@
 const fs = require('fs');
 
 const mongoose = require('mongoose');
-<<<<<<< HEAD
-// const { dbhost, dbpassword, dbuser } = require('./config/db.js');
-=======
-const { dbhost, dbpassword, dbuser } = require('./../config/db.js');
->>>>>>> fd34c250a885f2a717fb97f2340b430ba21fa487
 
 const fastify = require('fastify')({
-    https: {
-        key: fs.readFileSync('./config/security/key.pem'),
-        cert: fs.readFileSync('./config/security/cert.pem')
-    },
     logger: true
 });
 
@@ -30,7 +21,9 @@ fastify.register(require('fastify-jwt'), {
     secret: process.env.SECRET_KEY || 'supersecret'
 });
 
-fastify.get('/chat', (req, reply) => {
+
+fastify.get('/chat/:uid', (req, reply) => {
+    // eslint-disable-next-line no-undef
     const stream = fs.createReadStream('./templates/chat.html');
     reply.type('text/html').send(stream);
 });
