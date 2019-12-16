@@ -1,4 +1,30 @@
-.navTab{
+.navTab {
+    margin-left: 20px;
     display: inline-block;
-    margin-left: 100px;
+}
+
+.loginBut{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.buttonSet{
+    display: inline-block;
+    margin-left: 400px;
+}
+
+.fnc{
+    margin-left: 3%;
+    font-size: 150%;
+}
+
+.navBar {
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    margin-bottom: 3%;
+    width: 100vw;
+    background: linear-gradient(to right, rgba(255,231,103,1) 0%, rgba(254,182,69,1) 8%, rgba(254,182,69,1) 80%);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
