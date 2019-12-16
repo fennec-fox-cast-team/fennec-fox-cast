@@ -47,3 +47,8 @@ Fennec Fox is a streaming platform which allows to communicate via voice or vide
 - Fastify for server side. We use fastify because it is fast and low overhead web framework, for Node.js
 - Using web-socket for creating connection with clients ('websocket').
 - We use MongoDB on server side, because we have document oriented data ('mongodb').
+
+
+API backend https://thawing-fortress-40899.herokuapp.com/
+Frontend https://fennec-fox-cast.netlify.com/contact
+
