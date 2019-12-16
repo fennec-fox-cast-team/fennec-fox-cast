@@ -40,7 +40,7 @@ function App() {
               <Route exact path="/contact" component={About}/>
               <Route exact path="/register" component={Registration}/>
               <Route exact path="/login" component={Login}/>
-              <Route exact path="/chat" component={() => window.location = 'https://10.25.129.244:5000/chat'} />
+              <Route exact path="/chat" component={() => window.location = 'https://thawing-fortress-40899.herokuapp.com/chat/dima'} />
 
           </Switch>
       </div>

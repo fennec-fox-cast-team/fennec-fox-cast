@@ -38,7 +38,7 @@ import AddFriend from  '../components/AddFriend'
                      } else {
                          listFriends= this.state.friends_list.map((friend) =>
                              <div>
-                                <li>{friend} => <a href={"https://10.25.129.244:5000/chat/" + 'dima'} >Call</a></li>
+                                <li>{friend} => <a href={"https://thawing-fortress-40899.herokuapp.com/chat/" + 'dima'} >Call</a></li>
                              </div>
                          );
                      }
