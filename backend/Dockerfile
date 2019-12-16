@@ -3,13 +3,11 @@ FROM node:10
 # Create app directory
 WORKDIR /usr/src/app
 
-ENV DBHOST=$DBHOST
-ENV DBPASSWORD=$DBPASSWORD
-ENV DBUSER=$DBUSER
+ENV DBHOST
+ENV DBPASSWORD
+ENV DBUSER
 
 # Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
 COPY package*.json ./
 
 RUN npm ci
