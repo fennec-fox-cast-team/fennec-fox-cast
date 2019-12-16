@@ -32,7 +32,7 @@ fastify.get('/chat/:uid', (req, reply) => {
 // Connect to DB
 const connectToDB = () => {
     mongoose
-        .connect(`mongodb://${process.env.DBUSER_ENV}:${process.env.DBPASSWORD_ENV}@${process.env.DBHOST_ENV}`, {
+        .connect(`mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@${process.env.DBHOST}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
