@@ -38,7 +38,7 @@ const connectToDB = () => {
             useFindAndModify: false
         })
         .then(() => console.log('MongoDB connected...'))
-        .catch(err => console.log('Connection error to MongoDB!', err));
+        .catch(err => console.log('Connection error to MongoDB!' + process.env.DBUSER + ' ' + process.env.DBPASSWORD +  ' ' + process.env.DBHOST, err));
 };
 connectToDB();
 
