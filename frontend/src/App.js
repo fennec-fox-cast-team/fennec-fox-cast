@@ -7,7 +7,7 @@ import NavBar from "./components/NavigationBar";
 import './resources/styles/App.css';
 import Registration from "./components/auth/RegistrationForm";
 import Login from "./components/auth/Login";
-import sendRequest from './functions/SendRequest';
+import { Redirect } from 'react-router-dom'
 
 
 function App() {
@@ -39,6 +39,7 @@ function App() {
               <Route exact path="/contact" component={About}/>
               <Route exact path="/register" component={Registration}/>
               <Route exact path="/login" component={Login}/>
+              <Route exact path="/chat" component={() => window.location = 'https://thawing-fortress-40899.herokuapp.com/chat/dima'} />
           </Switch>
       </div>
     </BrowserRouter>);
