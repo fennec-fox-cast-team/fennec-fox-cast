@@ -23,8 +23,4 @@ COPY . .
 
 EXPOSE 5000
 
-RUN echo $DBHOST
-RUN echo $DBPASSWORD
-RUN echo $DBUSER
-
 CMD [ "node", "index.js" ]
