@@ -7,8 +7,7 @@ import NavBar from "./components/NavigationBar";
 import './resources/styles/App.css';
 import Registration from "./components/auth/RegistrationForm";
 import Login from "./components/auth/Login";
-import { Redirect } from 'react-router-dom'
-import Chat from "./components/Chat";
+import sendRequest from './functions/SendRequest';
 
 
 function App() {

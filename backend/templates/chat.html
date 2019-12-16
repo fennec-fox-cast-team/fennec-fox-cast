@@ -44,9 +44,7 @@
 
     var room = 'foo';
     // Could prompt for room name:
-    let a = location.href.split('/')
-
-    room = a[a.length - 1]//prompt('Enter room name:');
+    room = prompt('Enter room name:');
 
     var socket = io.connect();
 

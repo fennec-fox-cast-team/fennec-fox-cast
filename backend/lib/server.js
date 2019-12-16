@@ -3,13 +3,8 @@
 const fs = require('fs');
 
 const mongoose = require('mongoose');
-const { dbhost, dbpassword, dbuser } = require('./../config/db.js');
 
 const fastify = require('fastify')({
-    https: {
-        key: fs.readFileSync('./config/security/key.pem'),
-        cert: fs.readFileSync('./config/security/cert.pem')
-    },
     logger: true
 });
 
@@ -37,7 +32,7 @@ fastify.get('/chat/:uid', (req, reply) => {
 // Connect to DB
 const connectToDB = () => {
     mongoose
-        .connect(`mongodb://${dbuser}:${dbpassword}@${dbhost}`, {
+        .connect(`mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@${process.env.DBHOST}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
