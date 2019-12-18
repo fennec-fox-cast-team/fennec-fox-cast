@@ -1,0 +1,14 @@
+config:
+  target: 'https://thawing-fortress-40899.herokuapp.com/'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+      - get:
+          url: "/api/rooms/GetAllRooms/"
+      - get:
+          url: "/api/users/"

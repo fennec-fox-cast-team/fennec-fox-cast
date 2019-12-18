@@ -42,5 +42,4 @@ const connectToDB = () => {
 };
 connectToDB();
 
-
 module.exports = fastify;

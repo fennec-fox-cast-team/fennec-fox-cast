@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo tests",
+    "test": "jest",
     "lint": "eslint .",
     "deploy": "echo deploy"
   },
@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/fennec-fox-cast-team/fennec-fox-cast#readme",
   "devDependencies": {
-    "eslint": "^6.5.1"
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "@hapi/boom": "^8.0.1",

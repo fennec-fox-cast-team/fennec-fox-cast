@@ -65,6 +65,7 @@ typings/
 .idea
 
 # config files
+backend/process.env
 backend/config/
 backend/lib/config/db.js
 <<<<<<< HEAD
