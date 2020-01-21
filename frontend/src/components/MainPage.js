@@ -37,12 +37,13 @@ import AddFriend from  '../components/AddFriend'
                          listFriends = <div>No friends yet...</div>
                      } else {
                          listFriends= this.state.friends_list.map((friend) =>
-                             <li>{friend}</li>
+                             <div>
+                                <li>{friend} => <a href={"https://thawing-fortress-40899.herokuapp.com/chat/" + 'dima'} >Call</a></li>
+                             </div>
                          );
                      }
 
                      return <div><AddFriend/>{listFriends}</div>
-                 // Render loading state ...
                 } else {
                      return <div><AddFriend/>Loading, please wait!</div>
                 }
